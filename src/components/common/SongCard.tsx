@@ -5,31 +5,27 @@ import { ListedSongType } from "@/lib/types";
 import { useUser } from "@clerk/nextjs";
 import LikeButton from "./LikeButton";
 import DeleteButton from "./DeleteButton";
-import React from "react";
-import { useSongs } from "@/store/useSongs";
 
-const SongCard = ({ song }: { song: ListedSongType })=> {
+const SongCard = ({ song }: { song: ListedSongType }) => {
   const { user } = useUser();
   const isSongVoted = Boolean(
     song.votes.find((value) => value.user_id === user?.id)
   );
 
-  
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20,filter:"blur(10px)" }}
-      animate={{ opacity: 1, y: 0 ,filter:"blur(0px)"}}
+      initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       exit={{
-        opacity:0,x:200
+        opacity: 0,
+        x: 200,
       }}
       transition={{
-        duration:0.3,
-        ease:"easeInOut"
+        duration: 0.3,
+        ease: "easeInOut",
       }}
       key={song.id}
       layoutId={`${song.id}`}
-
       className=" w-full flex gap-6 max-sm:gap-2 justify-between  py-2 px-4 max-sm:px-2 inset-shadow-custom-hover rounded-lg  "
     >
       <div className=" flex items-start gap-6 max-sm:gap-2 ">
@@ -62,7 +58,6 @@ const SongCard = ({ song }: { song: ListedSongType })=> {
       </div>
     </motion.div>
   );
-}
+};
 
-
-export default SongCard
+export default SongCard;

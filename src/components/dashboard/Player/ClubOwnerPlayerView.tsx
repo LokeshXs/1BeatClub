@@ -10,7 +10,7 @@ import { updateCurrentlyPlayingSong } from "@/actions/updateCurrentlyPlayingSong
 import { useMusicClubs } from "@/store/useMusicClubs";
 import { useContext, useEffect, useTransition } from "react";
 import { WebSocketContext } from "@/context/WebSocketClientProvider";
-import { removeSong } from "@/actions/removeSong";
+import { removeSong } from "@/actions/songDatabaseActions";
 
 export default function ClubOwnerPlayerView({
   currentlyPlayingSong,

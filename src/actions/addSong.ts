@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import axios from "axios";
 import { string, z } from "zod";
 import prisma from "@/lib/prisma";
+import { addSongToDB } from "./songDatabaseActions";
 
 // This server action gets the song info from YT API and add the song in DB then return the info
 export async function addSongInClub(
@@ -13,6 +14,12 @@ export async function addSongInClub(
 ) {
   try {
     const session = await auth();
+
+    // session check
+
+    if (!session.userId) {
+      throw new Error("Invalid session!");
+    }
 
     if (!clubId) {
       throw new Error("Not Club id found, Please refresh!");
@@ -69,22 +76,22 @@ export async function addSongInClub(
       videoDetails.thumbnails?.medium?.url;
 
     //   Storing the data in Database
-    const newSong = await prisma.listedSongs.create({
-      data: {
-        user_id: session.userId!,
-        songTitle: videoDetails.title,
-        thumbnail: videoDetails.thumbnails.medium.url,
-        highResThumbnail: highResoultionThumbnail,
-        link: songlink,
-        videoId: videoId,
-        clubId: clubId,
-      },
+
+    const newSong = await addSongToDB({
+      user_id: session.userId,
+      songTitle: videoDetails.title,
+      thumbnail: videoDetails.thumbnails.medium.url,
+      highResThumbnail: highResoultionThumbnail,
+      link: songlink,
+      videoId: videoId,
+      clubId: clubId,
     });
+
     return {
       status: "success",
       message: "Video Details Fetched Successfully",
       data: {
-      ...newSong
+        ...newSong,
       },
     };
   } catch (error: any) {

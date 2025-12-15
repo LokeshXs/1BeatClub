@@ -18,7 +18,6 @@ export async function GET(req: Request) {
       },
     });
 
-    // console.log(musicClubs);
 
     return new Response(
       JSON.stringify({

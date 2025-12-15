@@ -9,13 +9,9 @@ import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Button } from "../../ui/button";
-import {
-  IconPointerFilled,
-} from "@tabler/icons-react";
+import { IconPointerFilled } from "@tabler/icons-react";
 import QRCode from "react-qrcode-logo";
-import animationData from "@/../public/assets/lottie/music-wave.json";
 import FourthBentoCard from "./FourthBentoCard";
-
 
 const songs = [
   {
@@ -79,19 +75,29 @@ const songs = [
   },
 ];
 
-const InviteCard = ({ isActive = false }: { isActive?: boolean }) => {
+const InviteCard = ({
+  isActive = false,
+  name,
+  username,
+  img,
+}: {
+  isActive?: boolean;
+  name: string;
+  username: string;
+  img: string;
+}) => {
   return (
     <div className="py-2 px-4 flex justify-between  items-center gap-4 inset-shadow-custom-hover rounded-lg w-full backdrop-blur-md ">
       <div className="flex items-center gap-2">
         <Avatar className="w-6 h-6">
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src={img} />
           <AvatarFallback className="bg-gradient-to-br from-gradient-start to-gradient-end">
-            CN
+            {name.slice(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>
         <div className="space-y-1">
-          <p className="text-sm">ShadCn</p>
-          <p className="text-xs text-neutral-400">shadcn@21</p>
+          <p className="text-sm">{name}</p>
+          <p className="text-xs text-neutral-400">{username}</p>
         </div>
       </div>
 
@@ -191,9 +197,9 @@ const features = [
     background: (
       <div className=" w-full h-full  absolute bg-radial-[140%_100%_at_10%_10%] max-sm:bg-radial-[200%_100%_at_50%_100%] from-gradient-start/20 top-0 left-0  ">
         <div className="   absolute right-24 max-sm:right-14 top-0 h-full w-[400px] max-sm:w-[340px] px-6 flex flex-col  pt-12 max-sm:pt-4 gap-6 mask-b-from-5% ">
-          <InviteCard isActive={true} />
-          <InviteCard />
-          <InviteCard />
+          <InviteCard isActive={true} username="michael_b" name="Michael"  img="https://randomuser.me/api/portraits/men/76.jpg" />
+          <InviteCard  name="Emma"  img="https://randomuser.me/api/portraits/women/45.jpg" username="emma_w"/>
+          <InviteCard name="Alex" img="https://randomuser.me/api/portraits/men/32.jpg" username="alex_j" />
 
           <div className="absolute right-20 top-[76px] max-sm:top-[48px] after:content-[''] after:absolute after:-top-1 after:-left-1 after:w-6 after:h-6 after:bg-gradient-via after:rounded-full after:animate-ping ">
             <IconPointerFilled className="w-8 h-8 max-sm:w-6 max-sm:h-6 absolute z-[2]  drop-shadow-lg" />
@@ -222,23 +228,24 @@ const features = [
     className: "col-span-3 lg:col-span-1 bg-primary",
     href: "/sign-in",
     cta: "Try Now",
-    background: (
-      <FourthBentoCard/>
-    ),
+    background: <FourthBentoCard />,
   },
 ];
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="  relative max-w-7xl mx-auto mt-28 max-md:mt-20 max-sm:mt-4 px-6 max-sm:px-4">
+    <section
+      id="features"
+      className="  relative max-w-7xl mx-auto mt-28 max-md:mt-20 max-sm:mt-4 px-6 max-sm:px-4"
+    >
       <div className=" container mx-auto   px-6  max-sm:px-2 space-y-12 max-md:space-y-8 ">
         <div className=" flex flex-col items-center gap-2">
           <h2 className=" text-4xl max-sm:text-2xl text-center font-semibold text-secondary-foreground">
             Where Vibes Meet Votes
           </h2>
           <p className=" text-lg text-subtext italic text-center max-sm:text-sm max-w-lg">
-            From parties to study sessions, see how voting music transforms any
-            gathering
+            From parties to road trips, see how voting music transforms any
+            gatherings
           </p>
         </div>
 

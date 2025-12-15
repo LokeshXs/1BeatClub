@@ -64,22 +64,6 @@ const BentoCard = ({
         <p className="max-w-lg text-neutral-400 text-sm">{description}</p>
       </div>
 
-      {/* <div
-        className={cn(
-          "lg:hidden pointer-events-none flex w-full translate-y-0 transform-gpu flex-row items-center transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
-        )}
-      >
-        <Button
-          asChild
-          size="sm"
-          className="pointer-events-auto p-0 bg-gradient-to-br from-gradient-start via-gradient-via to-gradient-end"
-        >
-          <a href={href} className=" text-white">
-            {cta}
-            <IconArrowRight  />
-          </a>
-        </Button>
-      </div> */}
     </div>
 
     <div

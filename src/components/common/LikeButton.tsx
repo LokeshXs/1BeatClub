@@ -8,7 +8,7 @@ import { WebSocketContext } from "@/context/WebSocketClientProvider";
 import { useMusicClubs } from "@/store/useMusicClubs";
 import { ListedSongType } from "@/lib/types";
 import { useUser } from "@clerk/nextjs";
-import { voteSong } from "@/actions/voteSong";
+import { voteSong } from "@/actions/songDatabaseActions";
 
 // Generate particle positions around the heart
 const particles = Array.from({ length: 6 }, (_, i) => ({

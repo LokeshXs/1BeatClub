@@ -1,10 +1,11 @@
-import { removeSong } from "@/actions/removeSong";
+import { removeSong } from "@/actions/songDatabaseActions";
 import { ListedSongType } from "@/lib/types";
 import { useContext, useTransition } from "react";
 import Loader from "../ui/loaders/loader1/Loader";
 import { useSongs } from "@/store/useSongs";
 import { WebSocketContext } from "@/context/WebSocketClientProvider";
 import { useMusicClubs } from "@/store/useMusicClubs";
+import { toast } from "sonner";
 
 export default function DeleteButton({ song }: { song: ListedSongType }) {
   const [isPending, startTransition] = useTransition();
@@ -14,24 +15,33 @@ export default function DeleteButton({ song }: { song: ListedSongType }) {
 
   const deleteSongHandler = async () => {
     startTransition(async () => {
-      await removeSong({ songId: song.id });
-      removeSongFromList(song.id);
-      if (webSocketClient) {
-        webSocketClient.send(
-          JSON.stringify({
-            type: "REMOVESONG",
-            data: {
-              songId: song.id,
-              clubId: selectedClub?.id,
-            },
-          })
-        );
+      try {
+        // removing song from DB
+        await removeSong({ songId: song.id });
+
+        // removing from local state
+        removeSongFromList(song.id);
+
+        // sending websocket event
+        if (webSocketClient) {
+          webSocketClient.send(
+            JSON.stringify({
+              type: "REMOVESONG",
+              data: {
+                songId: song.id,
+                clubId: selectedClub?.id,
+              },
+            })
+          );
+        }
+      } catch (err) {
+        toast.error("Removing song failed!");
       }
     });
   };
 
   return (
-    <>
+    <div className=" flex justify-center items-center">
       {isPending ? (
         <Loader />
       ) : (
@@ -55,6 +65,6 @@ export default function DeleteButton({ song }: { song: ListedSongType }) {
           </svg>
         </button>
       )}
-    </>
+    </div>
   );
 }
