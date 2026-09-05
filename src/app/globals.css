@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@layer clerk;
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

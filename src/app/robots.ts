@@ -14,6 +14,6 @@ export default function robots(): MetadataRoute.Robots {
       },
 
     ],
-    sitemap: "https://www.1beatclub.in/sitemap.xml",
+    sitemap: "https://1beatclub.in/sitemap.xml",
   };
 }

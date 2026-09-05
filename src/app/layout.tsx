@@ -14,8 +14,16 @@ const inter = Inter({
   weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });
+
+const siteUrl = "https://1beatclub.in";
+const socialPreviewImage = `${siteUrl}/1beatclub-social-preview.png`;
+
 export const metadata: Metadata = {
-  title: "1Beatclub — Where Music Brings Everyone Together",
+  title: {
+    default: "1BeatClub — Let the Crowd Pick the Soundtrack",
+    template: "%s | 1BeatClub",
+  },
+  applicationName: "1BeatClub",
   description:
     "Create music clubs, add songs, vote for the next track, and enjoy together — whether at a gym, party, wedding, or home gathering. 1Beatclub makes shared music experiences effortless and fun.",
   keywords: [
@@ -30,19 +38,36 @@ export const metadata: Metadata = {
     "music",
     "party"
   ],
-  metadataBase:new URL("https://1beatclub.in"),
+  authors: [{ name: "1BeatClub" }],
+  creator: "1BeatClub",
+  publisher: "1BeatClub",
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "1Beatclub — Music. Moments. Together.",
+    title: "1BeatClub — Let the Crowd Pick the Soundtrack",
     description:
       "Host the vibe. Vote for songs. Enjoy music together. 1Beatclub lets friends create shared playlists for any occasion — parties, gyms, or casual hangouts.",
-    url: "https://1beatclub.in",
-    siteName: "1Beatclub",
+    url: siteUrl,
+    siteName: "1BeatClub",
     images: [
       {
-        url: "/showcard.png",
-        width: 1200,
-        height: 630,
-        alt: "1Beatclub - Share Music Moments Together",
+        url: socialPreviewImage,
+        width: 1731,
+        height: 909,
+        alt: "1BeatClub — collaborative music voting for every gathering",
       },
     ],
     locale: "en_US",
@@ -50,14 +75,26 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "1Beatclub - Share the beat with your crew",
+    title: "1BeatClub — Let the Crowd Pick the Soundtrack",
     description:
       "Create a club, add songs, and let everyone vote on what plays next. 1Beatclub turns any gathering into a shared music experience.",
-    images: "/showcard.png",
+    images: [socialPreviewImage],
   },
   icons: {
     icon: "/favicon.ico",
   },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "1BeatClub",
+  applicationCategory: "EntertainmentApplication",
+  operatingSystem: "Web",
+  url: siteUrl,
+  description:
+    "A collaborative music app where groups add songs and vote for what plays next.",
+  image: socialPreviewImage,
 };
 
 export default function RootLayout({
@@ -69,6 +106,10 @@ export default function RootLayout({
     <ClerkProvider appearance={{ theme: dark, cssLayerName: "clerk" }}>
       <html lang="en" className="light">
         <body className={`${inter.className}  antialiased`}>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
           <main className=" bg-background relative">
             <MobileNavContextProvider>
 
